@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome - Neon Passcode Gate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: radial-gradient(ellipse at center, #1a0038 0%, #060017 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+    .container {
+      background: rgba(10, 0, 56, 0.8);
+      border-radius: 28px;
+      box-shadow: 0 0 40px #ff00a2ad, 0 0 0 8px #1a0038;
+      padding: 48px 36px 40px 36px;
+      text-align: center;
+      position: relative;
+      animation: pulse-glow 3s infinite alternate;
+      z-index: 2;
+    }
+    @keyframes pulse-glow {
+      from { box-shadow: 0 0 40px #ff00a2ad, 0 0 0 8px #1a0038; }
+      to { box-shadow: 0 0 90px #ff0080c9, 0 0 0 12px #1a0038; }
+    }
+    h1 {
+      font-size: 2.8em;
+      color: #fff;
+      text-shadow: 0 0 24px #ff00a2, 0 0 60px #3f0fff;
+      margin-bottom: 16px;
+      letter-spacing: 0.08em;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      font-weight: 900;
+      animation: neon-text 2s infinite alternate;
+    }
+    @keyframes neon-text {
+      from { text-shadow: 0 0 24px #ff00a2, 0 0 60px #3f0fff; }
+      to   { text-shadow: 0 0 48px #ff00a2, 0 0 80px #3f0fff; }
+    }
+    .form-group {
+      margin: 22px 0 18px 0;
+    }
+    label {
+      display: block;
+      color: #ffb347;
+      font-size: 1.15em;
+      margin-bottom: 10px;
+      letter-spacing: 0.06em;
+      font-weight: bold;
+      text-shadow: 0 0 12px #ff00a2c7;
+    }
+    input[type="password"] {
+      font-size: 2.2em;
+      padding: 14px 22px;
+      border-radius: 16px;
+      border: none;
+      outline: none;
+      background: #08002a;
+      color: #ff00a2;
+      box-shadow: 0 0 16px #ff00a2a8, 0 0 0 2px #fff1;
+      letter-spacing: 0.32em;
+      text-align: center;
+      font-family: 'Orbitron', 'monospace';
+      margin-bottom: 12px;
+      transition: box-shadow 0.2s;
+    }
+    input[type="password"]:focus {
+      box-shadow: 0 0 30px #ff00a2e0, 0 0 0 3px #fff4;
+    }
+    .btn {
+      margin-top: 12px;
+      padding: 18px 54px;
+      font-size: 1.4em;
+      font-family: 'Orbitron', Arial, sans-serif;
+      color: #fff;
+      background: linear-gradient(90deg, #ff00a2 15%, #3f0fff 85%);
+      border: none;
+      border-radius: 18px;
+      box-shadow: 0 0 16px #ff00a2a8, 0 0 0 2px #3f0fff;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.14s;
+      outline: none;
+      position: relative;
+      z-index: 2;
+    }
+    .btn:active {
+      transform: scale(0.96);
+      background: linear-gradient(90deg, #ffb347 15%, #3f0fff 85%);
+      box-shadow: 0 0 40px #ff00a2c3, 0 0 0 3px #3f0fff;
+    }
+    .btn:hover {
+      background: linear-gradient(90deg, #ffb347 15%, #ff00a2 85%);
+      box-shadow: 0 0 30px #ff00a2c3, 0 0 0 3px #3f0fff;
+    }
+    .effect-bg {
+      position: absolute;
+      left: -60px; top: -60px; right: -60px; bottom: -60px;
+      z-index: -1;
+      pointer-events: none;
+      background: url('https://www.transparenttextures.com/patterns/cubes.png');
+      opacity: 0.12;
+      filter: blur(1.5px);
+      border-radius: 38px;
+    }
+    .container:before {
+      content: "";
+      position: absolute;
+      left: -8px; top: -8px; right: -8px; bottom: -8px;
+      border-radius: 38px;
+      border: 2px solid #ff00a2;
+      box-shadow: 0 0 24px #ff00a2, 0 0 14px #3f0fff inset;
+      opacity: 0.36;
+      z-index: 1;
+      pointer-events: none;
+    }
+    /* Hiệu ứng overlay khi chuyển trang */
+    .transition-overlay {
+      position: fixed;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: radial-gradient(ellipse at center, #ff00a2cc 0%, #3f0fff 100%);
+      z-index: 99;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.6s;
+      animation: none;
+    }
+    .transition-active {
+      opacity: 1;
+      animation: pageFadeOut 0.65s forwards;
+    }
+    @keyframes pageFadeOut {
+      0% { opacity: 0; }
+      50% { opacity: 0.9; }
+      100% { opacity: 1; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 26px 10px; }
+      h1 { font-size: 1.7em; }
+      input[type="password"] { font-size: 1.1em; padding: 8px 14px; }
+      .btn { font-size: 1em; padding: 10px 22px;}
+      .effect-bg { left: -20px; top: -20px; right: -20px; bottom: -20px; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:700,900" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="effect-bg"></div>
+    <h1>🚀 WELCOME TO THE GATE 🚀</h1>
+    <form autocomplete="off" onsubmit="return checkPasscode(event)">
+      <div class="form-group">
+        <label for="passcode">Enter Passcode</label>
+        <input type="password" id="passcode" maxlength="8" autocomplete="off" required>
+      </div>
+      <button type="submit" class="btn">ENTER</button>
+    </form>
+    <div id="msg" style="margin-top:24px;color:#ff5252;font-size:1.1em;font-family:'Orbitron',Arial,sans-serif;text-shadow:0 0 4px #ff00a2;"></div>
+  </div>
+  <div class="transition-overlay" id="pageTransition"></div>
+  <script>
+    // Hiển thị thông báo khi nhập pass sai
+    function checkPasscode(e) {
+      e.preventDefault();
+      const pass = document.getElementById('passcode').value;
+      // Đổi passcode bên dưới theo ý bạn!
+      if (pass === "12345678") {
+        document.getElementById('msg').style.color = "#73ff00";
+        document.getElementById('msg').textContent = "Access Granted! 🚀";
+        // Hiệu ứng chuyển trang
+        const overlay = document.getElementById('pageTransition');
+        overlay.classList.add('transition-active');
+        setTimeout(()=>location.href='loading.html', 700); // Chuyển trang sau hiệu ứng
+      } else {
+        document.getElementById('msg').style.color = "#ff5252";
+        document.getElementById('msg').textContent = "Wrong Passcode!";
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>

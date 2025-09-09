@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rocket Loading Animation</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      background: radial-gradient(circle at 60% 40%, #23255d 0%, #060017 100%);
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loading-container {
+      position: relative;
+      width: 180px;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      z-index: 2;
+    }
+    .rocket {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 58px;
+      width: 80px;
+      height: 140px;
+      z-index: 2;
+      animation: rocket-bounce 1.7s infinite cubic-bezier(.7,.1,.3,.98);
+    }
+    @keyframes rocket-bounce {
+      0% { bottom: 58px; }
+      30% { bottom: 90px; }
+      40% { bottom: 130px; }
+      60% { bottom: 90px; }
+      100% { bottom: 58px; }
+    }
+    .flames {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 44px;
+      z-index: 1;
+      width: 48px;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      pointer-events: none;
+    }
+    .flame {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      width: 38px;
+      height: 70px;
+      opacity: 0.9;
+      animation: flame-flicker 0.56s infinite linear;
+      filter: blur(2px);
+    }
+    .flame.flame2 {
+      width: 24px;
+      left: 62%;
+      opacity: 0.7;
+      animation-delay: 0.17s;
+      filter: blur(3.5px);
+    }
+    .flame.flame3 {
+      width: 18px;
+      left: 32%;
+      opacity: 0.5;
+      animation-delay: 0.32s;
+      filter: blur(5px);
+    }
+    @keyframes flame-flicker {
+      0% { opacity: 0.8; transform: scaleY(1) translateX(-50%);}
+      20% { opacity: 0.7; transform: scaleY(1.08) translateX(-50%);}
+      40% { opacity: 1;   transform: scaleY(1.23) translateX(-50%);}
+      60% { opacity: 0.6; transform: scaleY(0.87) translateX(-50%);}
+      100% { opacity: 0.8; transform: scaleY(1) translateX(-50%);}
+    }
+    .dots {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 20px;
+      width: 70px;
+      display: flex;
+      justify-content: center;
+      z-index: 3;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      margin: 0 8px;
+      background: #ff00a2;
+      border-radius: 50%;
+      box-shadow: 0 0 14px #ff00a2b2, 0 0 4px #fff4;
+      opacity: 0.5;
+      animation: dot-blink 1.2s infinite;
+    }
+    .dot:nth-child(2) { animation-delay: 0.3s;}
+    .dot:nth-child(3) { animation-delay: 0.6s;}
+    @keyframes dot-blink {
+      0%, 100% { opacity: 0.18; }
+      50% { opacity: 0.85; }
+    }
+    .loading-text {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: -38px;
+      text-align: center;
+      color: #fff;
+      font-size: 1.6em;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      letter-spacing: 0.14em;
+      text-shadow: 0 0 14px #ff00a2, 0 0 24px #3f0fff;
+      user-select: none;
+      animation: glowText 2.2s infinite alternate;
+    }
+    @keyframes glowText {
+      from { text-shadow: 0 0 6px #ff00a2, 0 0 12px #3f0fff; }
+      to   { text-shadow: 0 0 24px #ff00a2, 0 0 40px #3f0fff; }
+    }
+    /* Hiệu ứng overlay khi chuyển trang */
+    .transition-overlay {
+      position: fixed;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: radial-gradient(ellipse at center, #ff00a2cc 0%, #3f0fff 100%);
+      z-index: 99;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.6s;
+      animation: none;
+    }
+    .transition-active {
+      opacity: 1;
+      animation: pageFadeOut 0.65s forwards;
+    }
+    @keyframes pageFadeOut {
+      0% { opacity: 0; }
+      50% { opacity: 0.9; }
+      100% { opacity: 1; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:700,900" rel="stylesheet">
+</head>
+<body>
+  <div class="loading-container">
+    <div class="rocket">
+      <!-- SVG Rocket -->
+      <svg width="80" height="140" viewBox="0 0 80 140" fill="none">
+        <g>
+          <ellipse cx="40" cy="120" rx="18" ry="10" fill="#23255d" opacity="0.3"/>
+          <rect x="34" y="98" width="12" height="28" rx="6" fill="#c8cce6" stroke="#ff00a2" stroke-width="2"/>
+          <ellipse cx="40" cy="98" rx="12" ry="18" fill="#fff" stroke="#ff00a2" stroke-width="3"/>
+          <rect x="36" y="58" width="8" height="46" rx="4" fill="#d7e2ff" stroke="#3f0fff" stroke-width="2"/>
+          <ellipse cx="40" cy="56" rx="18" ry="32" fill="#fff" stroke="#ff00a2" stroke-width="5"/>
+          <ellipse cx="40" cy="56" rx="10" ry="18" fill="#ff00a2" opacity="0.25"/>
+          <ellipse cx="40" cy="38" rx="7" ry="14" fill="#ffe1f1" />
+          <ellipse cx="40" cy="30" rx="4.5" ry="8.5" fill="#fff" opacity="0.7"/>
+          <!-- Left fin -->
+          <ellipse cx="17" cy="104" rx="7" ry="16" fill="#ff00a2" opacity="0.7" transform="rotate(-14 17 104)"/>
+          <!-- Right fin -->
+          <ellipse cx="63" cy="104" rx="7" ry="16" fill="#3f0fff" opacity="0.7" transform="rotate(14 63 104)"/>
+          <!-- Window -->
+          <ellipse cx="40" cy="60" rx="7" ry="8" fill="#3f0fff" opacity="0.75" stroke="#fff" stroke-width="2"/>
+        </g>
+      </svg>
+    </div>
+    <div class="flames">
+      <svg class="flame" viewBox="0 0 38 70">
+        <path d="M19 0 Q17 18 5 45 Q19 60 19 70 Q19 60 33 45 Q21 18 19 0Z"
+              fill="url(#flameGrad1)"/>
+        <defs>
+          <linearGradient id="flameGrad1" x1="19" y1="0" x2="19" y2="70" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#fff44f"/>
+            <stop offset="0.45" stop-color="#ff9800"/>
+            <stop offset="0.7" stop-color="#ff00a2"/>
+            <stop offset="1" stop-color="#3f0fff" stop-opacity="0.32"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg class="flame flame2" viewBox="0 0 24 70">
+        <path d="M12 0 Q10 19 2 45 Q12 60 12 70 Q12 60 22 45 Q14 19 12 0Z"
+              fill="url(#flameGrad2)"/>
+        <defs>
+          <linearGradient id="flameGrad2" x1="12" y1="0" x2="12" y2="70" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#fff44f"/>
+            <stop offset="0.5" stop-color="#ff9800"/>
+            <stop offset="0.8" stop-color="#ff00a2"/>
+            <stop offset="1" stop-color="#3f0fff" stop-opacity="0.18"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg class="flame flame3" viewBox="0 0 18 70">
+        <path d="M9 0 Q7 22 1 45 Q9 60 9 70 Q9 60 17 45 Q11 22 9 0Z"
+              fill="url(#flameGrad3)"/>
+        <defs>
+          <linearGradient id="flameGrad3" x1="9" y1="0" x2="9" y2="70" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#fff44f"/>
+            <stop offset="0.6" stop-color="#ff9800"/>
+            <stop offset="0.9" stop-color="#ff00a2"/>
+            <stop offset="1" stop-color="#3f0fff" stop-opacity="0.14"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="loading-text">LOADING...</div>
+  </div>
+  <div class="transition-overlay" id="pageTransition"></div>
+  <script>
+    // Sau 5s hiện hiệu ứng chuyển trang rồi chuyển hướng
+    setTimeout(function() {
+      document.getElementById('pageTransition').classList.add('transition-active');
+      setTimeout(function() {
+        window.location.href = "album.html"; // Đổi sang trang bạn muốn tại đây
+      }, 700); // Đủ thời gian cho hiệu ứng overlay
+    }, 5000);
+  </script>
+</body>
+</html>
