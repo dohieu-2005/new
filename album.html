@@ -6,7 +6,8 @@
   <title>Neon 360° Album</title>
   <style>
     body {
-      background-color: #282e38;
+      background-image: url('anh1.jpg');
+      background-size: cover;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -48,6 +49,21 @@
       width: 150px;
       height: 250px;
     }
+      .container span video {
+      position: absolute;
+      border-radius: 18px;
+      box-shadow:
+        0 0 16px 4px #ff00a2,
+        0 0 32px 8px #3f0fff,
+        0 0 3px 1px #fff;
+      border: 3px solid #ff00a2;
+      outline: 2px solid #3f0fff;
+      outline-offset: -3px;
+      background: #181d2b;
+      transition: box-shadow 0.25s;
+      width: 150px;
+      height: 250px;
+    }
     .container span img:hover {
       box-shadow:
         0 0 32px 10px #ff00a2,
@@ -73,6 +89,8 @@
     <span style="--i:6"><img src="6.jpg" alt=""></span>
     <span style="--i:7"><img src="7.jpg" alt=""></span>
     <span style="--i:8"><img src="meme.jpg" alt=""></span>
+    <span><video src="vid1.mp4" autoplay muted loop controls></video></span>
   </div>
+  <audio src="snmeme.mp3.mp3" autoplay loop ></audio>
 </body>
 </html>

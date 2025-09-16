@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
     body {
-      background: radial-gradient(circle at 60% 40%, #23255d 0%, #060017 100%);
+      background-image: url('10.jpg');
+      background-size: 100%;
+      background-position: center;
+      image-rendering: crisp-edges;
       height: 100vh;
       margin: 0;
       overflow: hidden;
@@ -25,6 +28,7 @@
       z-index: 2;
     }
     .rocket {
+      
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -218,7 +222,7 @@
       <div class="dot"></div>
       <div class="dot"></div>
     </div>
-    <div class="loading-text">LOADING...</div>
+    <div class="loading-text">loading ...</div>
   </div>
   <div class="transition-overlay" id="pageTransition"></div>
   <script>
@@ -228,7 +232,8 @@
       setTimeout(function() {
         window.location.href = "album.html"; // Đổi sang trang bạn muốn tại đây
       }, 700); // Đủ thời gian cho hiệu ứng overlay
-    }, 5000);
+    }, 60000);
   </script>
+  <audio src="chuyen.mp3" autoplay loop></audio>
 </body>
 </html>

@@ -157,10 +157,10 @@
     <h1>🚀 CHÚC MỪNG SINH NHẬT MEMEMOI 🚀</h1>
     <form autocomplete="off" onsubmit="return checkPasscode(event)">
       <div class="form-group">
-        <label for="passcode">Enter Passcode</label>
-        <input type="password" id="passcode" maxlength="8" autocomplete="off" required>
+        <label for="passcode">Đoán xem .....</label>
+        <input type="password" id="passcode" maxlength="100" autocomplete="off" required>
       </div>
-      <button type="submit" class="btn">ENTER</button>
+      <button type="submit" class="btn">💩</button>
     </form>
     <div id="msg" style="margin-top:24px;color:#ff5252;font-size:1.1em;font-family:'Orbitron',Arial,sans-serif;text-shadow:0 0 4px #ff00a2;"></div>
   </div>
@@ -170,8 +170,10 @@
     function checkPasscode(e) {
       e.preventDefault();
       const pass = document.getElementById('passcode').value;
+      const successSound = document.getElementById('successSound');
+      const errorSound = document.getElementById('errorSound');
       // Đổi passcode bên dưới theo ý bạn!
-      if (pass === "17092008") {
+      if (pass === "acquyfifai") {
         document.getElementById('msg').style.color = "#73ff00";
         document.getElementById('msg').textContent = "Access Granted! 🚀";
         // Hiệu ứng chuyển trang
@@ -181,9 +183,12 @@
       } else {
         document.getElementById('msg').style.color = "#ff5252";
         document.getElementById('msg').textContent = "Wrong Passcode!";
+        errorSound.play();
+        
       }
       return false;
     }
   </script>
+  <audio id="errorSound" src="2.mp3"></audio>
 </body>
 </html>
